@@ -1,8 +1,6 @@
 const express = require('express');
-
 const app = express();
 const port = process.env.PORT || 5000;
-
 const yelp = require('yelp-fusion');
 
 // Place holder for Yelp Fusion's API Key. Grab them
@@ -11,9 +9,9 @@ const yelp = require('yelp-fusion');
 var keys = require('./config.js');
 apiKey = keys.yelp_key;
 
-const searchRequest = {
+var searchRequest = {
   term:'restaurants',
-  location: 'mira mesa, san diego, ca',
+  location: '',
   categories: 'restaurants, All',
   radius: 8000,
   limit: 5
@@ -21,8 +19,10 @@ const searchRequest = {
 
 const client = yelp.client(apiKey);
 
-app.get('/api/search', (req, res) => {
+app.get('/api/search/:location', (req, res) => {
+  searchRequest.location = req.params.location;
   client.search(searchRequest).then(response => {
+    console.log(apiKey);
     const firstResult = response.jsonBody.businesses;
     const prettyJson = JSON.stringify(firstResult, null, 4);
     res.send({businesses: prettyJson})

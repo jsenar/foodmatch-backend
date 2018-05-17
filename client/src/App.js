@@ -7,15 +7,23 @@ class App extends Component {
     response: ''
   };
 
+  //componentDidMount() {
+    //fetch('api/hello')
+      //.then(res =>{
+        //console.log(res);
+      //})
+  //}
+
   componentDidMount() {
     this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
+      .then(res => {this.setState({ response: res.express });
+    console.log(this.state.response);})
+      .catch(err => console.log(err))
   }
 
   callApi = async () => {
     const response = await fetch('/api/hello');
-    const body = await response.json();
+    const body = await response.text();
 
     if (response.status !== 200) throw Error(body.message);
 
@@ -52,23 +60,25 @@ class SearchForm extends Component {
   }
 
   handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.businesses);
+    this.callSearch()
+    .then(res => alert('A name was submitted: ' + res.businesses))//this.setState({ businesses: res.businesses }))
+      //alert('A name was submitted: ' + this.state.businesses);
     event.preventDefault();
   }
 
-  componentDidMount() {
-    this.callSearch()
-      .then(res => this.setState({ businesses: res.businesses }))
-      .catch(err => console.log(err));
-  }
+  //componentDidMount() {
+    //this.callSearch()
+      //.then(res => this.setState({ businesses: res.businesses }))
+      //.catch(err => console.log(err));
+  //}
   callSearch = async () => {
-    const response = await fetch('/api/search');
+    const response = await fetch('/api/search/'+this.state.value);
     const body = await response.json();
 
     if (response.status !== 200) throw Error(body.message);
 
     return body;
-  };
+  }
 
   render() {
     return (

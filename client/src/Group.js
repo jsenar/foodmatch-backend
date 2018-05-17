@@ -235,7 +235,7 @@ class Group extends Component {
                   <h3>
                     <a href={restaurant.url} target="_blank">{restaurant.name}</a>
                   </h3>
-                  <img src={restaurant.image_url} height="90"/>
+                  <img src={restaurant.image_url} alt="" height="90"/>
                 </li>
               );
             })
