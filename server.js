@@ -2,10 +2,15 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const yelp = require('yelp-fusion');
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://localhost/foodmatch'
 
-// Place holder for Yelp Fusion's API Key. Grab them
-// from https://www.yelp.com/developers/v3/manage_app
-//const apiKey = 'qXfPLhsztGu32EqZHHmL_rUvLZJ2XuSn6IYhQznIIl8DLxK8W2NreVF8vBk9m4jifBk5R-LTE68JgqSPHHxJxrNPsy75J3ZH1Gi8IfLBtIYztQbbFLOU28t2GOQ8WnYx';
+//MongoDB test
+// MongoClient.connect(url, function(err, db){
+//   db.close();
+// });
+
+
 var keys = require('./config.js');
 apiKey = keys.yelp_key;
 

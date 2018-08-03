@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
+import logo from '../logo.svg';
+import CardDeck from './CardDeck.js'
 
 var sample_data = [
     {
@@ -226,21 +228,12 @@ var sample_data = [
 class Group extends Component {
   render() {
     return (
-      <div className="Group">
-        <ul>
-          {
-            sample_data.map(function (restaurant){
-              return (
-                <li>
-                  <h3>
-                    <a href={restaurant.url} target="_blank">{restaurant.name}</a>
-                  </h3>
-                  <img src={restaurant.image_url} alt="" height="90"/>
-                </li>
-              );
-            })
-          }
-        </ul>
+      <div className="group">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Food Match</h1>
+        </header>
+        <CardDeck restaurants={sample_data} ></CardDeck>
       </div>
     );
   }
