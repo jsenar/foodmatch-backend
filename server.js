@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 const yelp = require('yelp-fusion');
-var mongoose = require('mongoose');
 const url = 'mongodb://localhost/foodmatch';
 var MongoClient = require('mongodb').MongoClient
 
