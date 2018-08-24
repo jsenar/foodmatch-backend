@@ -23,8 +23,6 @@ const Card = (props) => {
 
 //TODO: Create Swipe Animation
 const CardDeck = (props) => {
-    console.log(props.restaurants)
-    console.log(props.showIndex)
     var restaurant = props.restaurants[props.showIndex] || null;
 
     return (

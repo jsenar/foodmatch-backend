@@ -6,9 +6,9 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost/foodmatch'
 
 //MongoDB test
-// MongoClient.connect(url, function(err, db){
-//   db.close();
-// });
+MongoClient.connect(url, function(err, db){
+  db.close();
+});
 
 
 var keys = require('./config.js');
@@ -27,7 +27,6 @@ const client = yelp.client(apiKey);
 app.get('/api/search/:location', (req, res) => {
   searchRequest.location = req.params.location;
   client.search(searchRequest).then(response => {
-    console.log(apiKey);
     const firstResult = response.jsonBody.businesses;
     const prettyJson = JSON.stringify(firstResult, null, 4);
     res.send({businesses: prettyJson})

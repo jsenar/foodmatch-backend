@@ -10,7 +10,7 @@ ReactDOM.render(
   <Router>
     <div>
       <Route exact path="/" component={App} />
-      <Route path="/group" component={Group} />
+      <Route path="/:id" component={Group} />
     </div>
   </Router>,
   document.getElementById('root'));

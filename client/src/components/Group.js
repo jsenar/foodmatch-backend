@@ -3,7 +3,6 @@ import '../App.css';
 import logo from '../logo.svg';
 import CardDeck from './CardDeck.js'
 
-
 class Group extends Component {
 
   constructor(props){
@@ -231,15 +230,20 @@ class Group extends Component {
     ]
 
     this.state = {
+      userName: null,
+      names: {
+        Phil: 2,
+        Jordan: 0
+      },
       showIndex: 0,
       restaurants: sample_data
     };
-    console.log(this.state.restaurants)
     this.like = this.like.bind(this);
     this.dislike = this.dislike.bind(this);
+    //this.onSubmit = this.onSubmit.bind(this);
   }
 
-  like(e){
+  like(e) {
     e.preventDefault();
     var index = this.state.showIndex;
     var restaurants = this.state.restaurants;
@@ -250,7 +254,7 @@ class Group extends Component {
     this.setState({showIndex: this.state.showIndex + 1, restaurants: newRestaurants});
   }
 
-  dislike(e){
+  dislike(e) {
     e.preventDefault();
     var index = this.state.showIndex;
     var restaurants = this.state.restaurants;
