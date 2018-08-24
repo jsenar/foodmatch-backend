@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').load();
+}
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -5,8 +8,7 @@ const yelp = require('yelp-fusion');
 const url = 'mongodb://localhost/foodmatch';
 var MongoClient = require('mongodb').MongoClient
 
-const keys = require('./config.js');
-const apiKey = keys.yelp_key;
+const apiKey = process.env.YELP_KEY
 
 var searchRequest = {
   term:'restaurants',
