@@ -17,9 +17,12 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    fetch('/api/search/'+this.state.value)
-      .then(res => alert('A location was submitted: ' + res.businesses))
     event.preventDefault();
+    fetch('/api/search/' + this.state.value)
+      .then(res => {
+        console.log(res.body)
+        alert('A location was submitted: ' + res.businesses);
+      })
   }
 
   render() {

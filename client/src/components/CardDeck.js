@@ -1,16 +1,18 @@
 import React from 'react';
 import '../App.css';
 
-const Card = (props) => {
+function Card(props) {
   if (props.restaurant){
     return (
       <div className="card">
-          <h3><a target="_blank" href={props.restaurant.url}>{props.restaurant.name}</a></h3>
-          <img className="card-img" src={props.restaurant.image_url} />
-          <p className="stats">
-            <span className="rating">{props.restaurant.rating}/5 stars </span>
-             | <span className="review-count"> {props.restaurant.review_count} reviews</span>
-          </p>
+        <h3>
+          <a target="_blank" href={props.restaurant.url}>{props.restaurant.name}</a>
+        </h3>
+        <img className="card-img" src={props.restaurant.image_url} />
+        <p className="stats">
+          <span className="rating">{props.restaurant.rating}/5 stars </span>
+           | <span className="review-count"> {props.restaurant.review_count} reviews</span>
+        </p>
       </div>
     )
   }
@@ -22,8 +24,9 @@ const Card = (props) => {
 }
 
 //TODO: Create Swipe Animation
-const CardDeck = (props) => {
-    var restaurant = props.restaurants[props.showIndex] || null;
+function CardDeck(props) {
+    let restaurant = props.restaurants ? props.restaurants[props.showIndex] : null;
+    // let restaurant = null
 
     return (
       <div className="card-deck">

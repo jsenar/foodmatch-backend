@@ -3,15 +3,26 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+const yelp = require('yelp-fusion');
+const voteGroup = require('./routes/voteGroup.route');
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = process.env.PORT || 5000;
-const yelp = require('yelp-fusion');
-const url = 'mongodb://localhost/foodmatch';
-var MongoClient = require('mongodb').MongoClient
+const url = 'mongodb://uname:asdf1234@ds135519.mlab.com:35519/foodmatch';
+const mongoDb = process.env.MONGODB_URI || url;
+mongoose.connect(mongoDb);
+mongoose.Promise = global.Promise;
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const apiKey = process.env.YELP_KEY
 
-var searchRequest = {
+let searchRequest = {
   term:'restaurants',
   location: '',
   categories: 'restaurants, All',
@@ -32,9 +43,7 @@ app.get('/api/search/:location', (req, res) => {
   });
 })
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
+app.use('/vote-group', voteGroup);
 
 app.use(express.static(path.join(__dirname, 'client/build')))
 
