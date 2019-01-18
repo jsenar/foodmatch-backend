@@ -5,17 +5,22 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const yelp = require('yelp-fusion');
-const voteGroup = require('./routes/voteGroup.route');
 const bodyParser = require('body-parser');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpack = require('webpack');
+const webpackConfig = require('../webpack.config.js');
 
 const app = express();
 const port = process.env.PORT || 5000;
-const url = 'mongodb://uname:asdf1234@ds135519.mlab.com:35519/foodmatch';
-const mongoDb = process.env.MONGODB_URI || url;
-mongoose.connect(mongoDb);
+
+const MONGO_URI = 'mongodb://uname:asdf1234@ds135519.mlab.com:35519/foodmatch';
+
+// Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+mongoose.connect(MONGO_URI);
+mongoose.connection
+    .once('open', () => console.log('Connected to MongoLab instance.'))
+    .on('error', error => console.log('Error connecting to MongoLab:', error));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,12 +48,10 @@ app.get('/api/search/:location', (req, res) => {
   });
 })
 
-app.use('/vote-group', voteGroup);
+app.use(webpackMiddleware(webpack(webpackConfig)));
 
-app.use(express.static(path.join(__dirname, 'client/build')))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+app.get(“/”, (req, res) =>
+    res.sendFile(path.resolve(__dirname, “./public/index.html”))
+);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

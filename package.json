@@ -17,6 +17,9 @@
     "yelp-fusion": "^2.0.3"
   },
   "devDependencies": {
-    "concurrently": "^3.6.1"
+    "concurrently": "^3.6.1",
+    "webpack": "^4.28.3",
+    "webpack-dev-middleware": "^3.5.0",
+    "webpack-hot-middleware": "^2.24.3"
   }
 }
